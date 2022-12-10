@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TheBugTracker.Models
 {
     public class TicketHistory
     {
-        public int Id { get; set; }
+        public int Id { get; set; } // Primary Key
 
         [DisplayName("Ticket")]
         public int TicketId { get; set; } // Foreign Key
@@ -18,6 +19,7 @@ namespace TheBugTracker.Models
         [DisplayName("Current")]
         public string? NewValue { get; set; }
 
+        [DataType(DataType.Date)]
         [DisplayName("Date Modified")]
         public DateTimeOffset Created { get; set; }
 
@@ -28,7 +30,7 @@ namespace TheBugTracker.Models
         public string? UserId { get; set; } // Foreign Key
 
         // Navigation Properties
-        public virtual Ticket Ticket { get; set; }
-        public virtual BTUser User { get; set; }
+        public virtual Ticket? Ticket { get; set; }
+        public virtual BTUser? User { get; set; }
     }
 }

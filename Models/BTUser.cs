@@ -16,8 +16,6 @@ namespace TheBugTracker.Models
 
         [NotMapped]
         [Display(Name = "Full Name")]
-        public string FullName { get { return $"{FirstName} {LastName}"; } }
-        
-
+        public string FullName { get { return $"{FirstName} {LastName}"; } }      
     }
 }
