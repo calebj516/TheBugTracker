@@ -10,13 +10,13 @@ namespace TheBugTracker.Models
         public int Id { get; set; }
 
         [DisplayName("Ticket")]
-        public int TicketId { get; set; }
+        public int TicketId { get; set; } // Foreign Key
 
         [DisplayName("File Date")]
         public DateTimeOffset Created { get; set; }
 
         [DisplayName("Team Member")]
-        public string? UserId { get; set; }
+        public string? UserId { get; set; } // Foreign Key
 
         [DisplayName("File Description")]
         public string? Description { get; set; }
@@ -32,7 +32,7 @@ namespace TheBugTracker.Models
         [DisplayName("File Extension")]
         public string? FileContentType { get; set; }
 
-        // Navigation Properties (allows us to specify the relationship of one class to another)
+        // Navigation Properties
         public virtual Ticket Ticket { get; set; }
         public virtual BTUser User { get; set; }
     }

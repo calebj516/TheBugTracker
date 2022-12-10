@@ -7,7 +7,7 @@ namespace TheBugTracker.Models
         public int Id { get; set; }
 
         [DisplayName("Ticket")]
-        public int TicketId { get; set; }
+        public int TicketId { get; set; } // Foreign Key
 
         [DisplayName("Updated Item")]
         public string? Property { get; set; }
@@ -25,9 +25,9 @@ namespace TheBugTracker.Models
         public string? Descripton { get; set; }
 
         [DisplayName("Team Member")]
-        public string? UserId { get; set; }
+        public string? UserId { get; set; } // Foreign Key
 
-        // Navigation Properties (allows us to specify the relationship of one class to another)
+        // Navigation Properties
         public virtual Ticket Ticket { get; set; }
         public virtual BTUser User { get; set; }
     }
