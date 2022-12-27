@@ -20,11 +20,17 @@ builder.Services.AddDefaultIdentity<BTUser>(options => options.SignIn.RequireCon
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
+//builder.Services.AddIdentity<BTUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddDefaultUI()
+//    .AddDefaultTokenProviders()
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 // Custom Services
 builder.Services.AddScoped<IBTRolesService, BTRolesService>();
 builder.Services.AddScoped<IBTCompanyInfoService, BTCompanyInfoService>();
+builder.Services.AddScoped<IBTProjectService, BTProjectService>();
 
 var app = builder.Build();
 
