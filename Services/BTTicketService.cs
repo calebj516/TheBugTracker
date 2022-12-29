@@ -153,7 +153,15 @@ namespace TheBugTracker.Services
 
         public async Task<List<Ticket>> GetArchivedTicketsAsync(int companyId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Ticket> tickets = (await GetAllTicketsByCompanyAsync(companyId)).Where(t => t.Archived == true).ToList();
+                return tickets;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<List<Ticket>> GetProjectTicketsByPriorityAsync(string priorityName, int companyId, int projectId)
@@ -230,15 +238,21 @@ namespace TheBugTracker.Services
                 }
                 else if (await _rolesService.IsUserInRoleAsync(btUser, Roles.Developer.ToString()))
                 {
-
+                    tickets = (await _projectService.GetAllProjectsByCompanyAsync(companyId))
+                                                    .SelectMany(p => p.Tickets)
+                                                    .Where(t => t.DeveloperUserId == userId)
+                                                    .ToList();
                 }
                 else if (await _rolesService.IsUserInRoleAsync(btUser, Roles.Submitter.ToString()))
                 {
-
+                    tickets = (await _projectService.GetAllProjectsByCompanyAsync(companyId))
+                                                    .SelectMany(p => p.Tickets)
+                                                    .Where(t => t.OwnerUserId == userId)
+                                                    .ToList();
                 }
                 else if (await _rolesService.IsUserInRoleAsync(btUser, Roles.ProjectManager.ToString()))
                 {
-
+                    tickets = (await _projectService.GetUserProjectsAsync(userId)).SelectMany(p => p.Tickets).ToList();
                 }
 
                 return tickets;
