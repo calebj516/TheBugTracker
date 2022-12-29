@@ -24,7 +24,7 @@ namespace TheBugTracker.Models
         public DateTimeOffset Created { get; set; }
 
         [DisplayName("Description of Change")]
-        public string? Descripton { get; set; }
+        public string? Description { get; set; }
 
         [DisplayName("Team Member")]
         public string? UserId { get; set; } // Foreign Key
