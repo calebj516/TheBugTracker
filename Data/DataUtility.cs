@@ -47,7 +47,7 @@ namespace TheBugTracker.Data
         {
             using var svcScope = host.Services.CreateScope();
             var svcProvider = svcScope.ServiceProvider;
-            //Service: An instance of RoleManager
+            
             var dbContextSvc = svcProvider.GetRequiredService<ApplicationDbContext>();
             //Service: An instance of RoleManager
             var roleManagerSvc = svcProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -55,7 +55,6 @@ namespace TheBugTracker.Data
             var userManagerSvc = svcProvider.GetRequiredService<UserManager<BTUser>>();
             //Migration: This is the programmatic equivalent to Update-Database
             await dbContextSvc.Database.MigrateAsync();
-
 
             //Custom  Bug Tracker Seed Methods
             await SeedRolesAsync(roleManagerSvc);
