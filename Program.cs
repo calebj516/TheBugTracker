@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using TheBugTracker.Data;
 using TheBugTracker.Models;
 using TheBugTracker.Services;
@@ -9,10 +10,13 @@ using TheBugTracker.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = DataUtility.GetConnectionString(builder.Configuration);
 
+// Enable query splitting to avoid the "Cartesian Explosion" problem which adversely affects performance:
+// Some of the data that we will query for the bug tracker can require multiple joined database queries that may have repeated data,
+// and enabling query splitting will allow us to obtain the data we need without the unnecessary repeated data.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+      options.UseNpgsql(DataUtility.GetConnectionString(builder.Configuration),
+    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
