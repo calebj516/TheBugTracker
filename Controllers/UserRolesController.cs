@@ -19,9 +19,10 @@ namespace TheBugTracker.Controllers
             _companyInfoService = companyInfoService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> ManageUserRoles()
         {
-            // Add an instance of the ViewModel as a List
+            // Add an instance of the ViewModel as a List (model)
             List<ManageUserRolesViewModel> model = new();
 
             // Get CompanyId
@@ -46,7 +47,7 @@ namespace TheBugTracker.Controllers
             }
 
             // Return the model to the View
-            return View();
+            return View(model);
         }
     }
 }
