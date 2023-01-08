@@ -1,4 +1,5 @@
 ﻿@model TheBugTracker.Models.ViewModels.AddProjectWithPMViewModel
+@using TheBugTracker.Models.Enums
 
 @{
     ViewData["Title"] = "Create";
@@ -36,9 +37,6 @@
                 <label class="control-label"> Choose a priority </label>
                 <select asp-for="Project.ProjectPriorityId" class="form-control" asp-items="@Model.PriorityList"></select>
             </div>
-            @*
-            Set up Image Capture
-            *@
             <div class="form-group mt-2">
                 <label class="control-label"> Project Image </label>
                 <input asp-for="Project.ImageFormFile" class="form-control" type="file" accept=".png,.jpg,.jpeg,.gif"
@@ -54,15 +52,16 @@
             {
                 <img id="imageFileData" class="img-fluid img-thumbnail" style="width:100px;height:80px" />
             }
-            @*
-            Set up PM SelectList
-            *@
-            <div class="form-group mt-2">
-                <label class="control-label"> Project Manager </label>
-                <select asp-for="PmId" class="form-control" asp-items="@Model.PMList">
-                    <option></option>
-                </select>
-            </div>
+
+            @if (User.IsInRole(Roles.Admin.ToString()))
+            {
+                <div class="form-group mt-2">
+                    <label class="control-label"> Project Manager </label>
+                    <select asp-for="PmId" class="form-control" asp-items="@Model.PMList">
+                        <option></option>
+                    </select>
+                </div>
+            }
 
             <div class="form-group mt-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
