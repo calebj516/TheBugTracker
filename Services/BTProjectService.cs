@@ -96,8 +96,16 @@ namespace TheBugTracker.Services
             try
             {
                 project.Archived = true;
-                _context.Update(project);
-                await _context.SaveChangesAsync();
+                await UpdateProjectAsync(project);
+
+                // Archive the Tickets for the Project
+                foreach (Ticket ticket in project.Tickets)
+                {
+                    ticket.ArchivedByProject = true;
+                    _context.Update(ticket);
+                    await _context.SaveChangesAsync();
+                }
+
             }
             catch (Exception)
             {
@@ -361,11 +369,42 @@ namespace TheBugTracker.Services
             }
         }
 
+        public async Task RestoreProjectAsync(Project project)
+        {
+            try
+            {
+                project.Archived = false;
+                await UpdateProjectAsync(project);
+
+                // Restore the Tickets for the Project
+                foreach (Ticket ticket in project.Tickets)
+                {
+                    ticket.ArchivedByProject = false;
+                    _context.Update(ticket);
+                    await _context.SaveChangesAsync();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         // CRUD - Update
         public async Task UpdateProjectAsync(Project project)
         {
-            _context.Update(project);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Update(project);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
