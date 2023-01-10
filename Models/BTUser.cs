@@ -31,7 +31,7 @@ namespace TheBugTracker.Models
         public string? AvatarContentType { get; set; }
 
 
-        public int? CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         // Navigation Properties
         public virtual Company? Company { get; set; }
