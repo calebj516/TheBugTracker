@@ -193,9 +193,38 @@ namespace TheBugTracker.Services
         #region Get Archived Projects By Company
         public async Task<List<Project>> GetArchivedProjectsByCompanyAsync(int companyId)
         {
-            List<Project> projects = await GetAllProjectsByCompanyAsync(companyId);
+            try
+            {
+                List<Project> projects = await _context.Projects.Where(p => p.CompanyId == companyId && p.Archived == true)
+                                                    .Include(p => p.Members)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.Comments)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.Attachments)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.History)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.DeveloperUser)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.OwnerUser)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.Notifications)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.TicketStatus)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.TicketPriority)
+                                                    .Include(p => p.Tickets)
+                                                        .ThenInclude(t => t.TicketType)
+                                                    .Include(p => p.ProjectPriority)
+                                                    .ToListAsync();
 
-            return projects.Where(p => p.Archived == true).ToList();
+                return projects;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         #endregion
 
