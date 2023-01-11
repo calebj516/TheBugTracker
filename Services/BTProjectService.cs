@@ -8,14 +8,18 @@ namespace TheBugTracker.Services
 {
     public class BTProjectService : IBTProjectService
     {
+        #region Properties
         private readonly ApplicationDbContext _context;
         private readonly IBTRolesService _rolesService;
+        #endregion
 
+        #region Constructor
         public BTProjectService(ApplicationDbContext context, IBTRolesService rolesService)
         {
             _context = context;
             _rolesService = rolesService;
-        }
+        } 
+        #endregion
 
         // CRUD - Create
         public async Task AddNewProjectAsync(Project project)
@@ -233,28 +237,29 @@ namespace TheBugTracker.Services
             try
             {
                 List<Project> userProjects = (await _context.Users
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Company)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Members)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Tickets)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Tickets)
-                                                                    .ThenInclude(t => t.DeveloperUser)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Tickets)
-                                                                    .ThenInclude(t => t.OwnerUser)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Tickets)
-                                                                    .ThenInclude(t => t.TicketPriority)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Tickets)
-                                                                    .ThenInclude(t => t.TicketStatus)
-                                                            .Include(u => u.Projects)
-                                                                .ThenInclude(p => p.Tickets)
-                                                                    .ThenInclude(t => t.TicketType)
-                                                            .FirstOrDefaultAsync(u => u.Id == userId)).Projects.ToList();
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Company)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Members)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Tickets)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Tickets)
+                            .ThenInclude(t => t.DeveloperUser)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Tickets)
+                            .ThenInclude(t => t.OwnerUser)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Tickets)
+                            .ThenInclude(t => t.TicketPriority)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Tickets)
+                            .ThenInclude(t => t.TicketStatus)
+                    .Include(u => u.Projects)
+                        .ThenInclude(p => p.Tickets)
+                            .ThenInclude(t => t.TicketType)
+                    .FirstOrDefaultAsync(u => u.Id == userId)).Projects.ToList();
+
                 return userProjects;
             }
             catch (Exception ex)
