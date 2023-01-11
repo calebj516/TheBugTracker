@@ -23,13 +23,15 @@ namespace TheBugTracker.Controllers
         private readonly IBTFileService _fileService;
         private readonly IBTProjectService _projectService;
         private readonly UserManager<BTUser> _userManager;
+        private readonly IBTCompanyInfoService _companyInfoService;
 
         public ProjectsController(ApplicationDbContext context,
                                   IBTRolesService rolesService,
                                   IBTLookupService lookupService,
                                   IBTFileService fileService,
                                   IBTProjectService projectService,
-                                  UserManager<BTUser> userManager)
+                                  UserManager<BTUser> userManager,
+                                  IBTCompanyInfoService companyInfoService)
         {
             _context = context;
             _rolesService = rolesService;
@@ -37,6 +39,7 @@ namespace TheBugTracker.Controllers
             _fileService = fileService;
             _projectService = projectService;
             _userManager = userManager;
+            _companyInfoService = companyInfoService;
         }
 
         // GET: Projects
@@ -53,6 +56,25 @@ namespace TheBugTracker.Controllers
             string userId = _userManager.GetUserId(User);
 
             List<Project> projects = await _projectService.GetUserProjectsAsync(userId);
+
+            return View(projects);
+        }
+
+        // GET: All Projects
+        public async Task<IActionResult> AllProjects()
+        {
+            List<Project> projects = new();
+
+            int companyId = User.Identity.GetCompanyId().Value;
+
+            if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.ProjectManager)))
+            {
+                projects = await _companyInfoService.GetAllProjectsAsync(companyId); // this includes archived projects
+            }
+            else
+            {
+                projects = await _projectService.GetAllProjectsByCompanyAsync(companyId); // all projects except archived
+            }
 
             return View(projects);
         }
