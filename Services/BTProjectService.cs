@@ -239,13 +239,36 @@ namespace TheBugTracker.Services
         #region Get Project By Id
         public async Task<Project> GetProjectByIdAsync(int projectId, int companyId)
         {
-            Project? project = await _context.Projects
-                                            .Include(p => p.Tickets)
-                                            .Include(p => p.Members)
-                                            .Include(p => p.ProjectPriority)
-                                            .FirstOrDefaultAsync(p => p.Id == projectId && p.CompanyId == companyId);
+            try
+            {
+                //Project? project = await _context.Projects
+                //                                .Include(p => p.Tickets)
+                //                                .Include(p => p.Members)
+                //                                .Include(p => p.ProjectPriority)
+                //                                .FirstOrDefaultAsync(p => p.Id == projectId && p.CompanyId == companyId);
 
-            return project;
+                Project? project = await _context.Projects
+                                                .Include(p => p.Tickets)
+                                                    .ThenInclude(t => t.TicketPriority)
+                                                .Include(p => p.Tickets)
+                                                    .ThenInclude(t => t.TicketStatus)
+                                                .Include(p => p.Tickets)
+                                                    .ThenInclude(t => t.TicketType)
+                                                .Include(p => p.Tickets)
+                                                    .ThenInclude(t => t.DeveloperUser)
+                                                .Include(p => p.Tickets)
+                                                    .ThenInclude(t => t.OwnerUser)
+                                                .Include(p => p.Members)
+                                                .Include(p => p.ProjectPriority)
+                                                .FirstOrDefaultAsync(p => p.Id == projectId && p.CompanyId == companyId);
+
+                return project;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         #endregion
 
