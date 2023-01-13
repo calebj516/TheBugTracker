@@ -183,7 +183,7 @@ namespace TheBugTracker.Services
         {
             try
             {
-                Project project = await _context.Projects.Where(p => p.CompanyId == companyId)
+                Project? project = await _context.Projects.Where(p => p.CompanyId == companyId)
                                                          .Include(p => p.Tickets)
                                                             .ThenInclude(t => t.History)
                                                                 .ThenInclude(h => h.User)
