@@ -7,13 +7,18 @@ namespace TheBugTracker.Services
 {
     public class BTInviteService : IBTInviteService
     {
+        #region Properties
         private readonly ApplicationDbContext _context;
+        #endregion
 
+        #region Constructor
         public BTInviteService(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
 
+        #region Accept Invite
         public async Task<bool> AcceptInviteAsync(Guid? token, string userId, int companyId)
         {
             // Retrieve the invite from the db
@@ -39,7 +44,9 @@ namespace TheBugTracker.Services
                 throw;
             }
         }
+        #endregion
 
+        #region Add New Invite
         public async Task AddNewInviteAsync(Invite invite)
         {
             try
@@ -53,7 +60,9 @@ namespace TheBugTracker.Services
                 throw;
             }
         }
+        #endregion
 
+        #region Any Invite
         public async Task<bool> AnyInviteAsync(Guid token, string email, int companyId)
         {
             try
@@ -69,7 +78,9 @@ namespace TheBugTracker.Services
                 throw;
             }
         }
+        #endregion
 
+        #region Get Invite
         public async Task<Invite> GetInviteAsync(int inviteId, int companyId)
         {
             try
@@ -88,7 +99,9 @@ namespace TheBugTracker.Services
                 throw;
             }
         }
+        #endregion
 
+        #region Get Invite #2 (Overloaded)
         public async Task<Invite> GetInviteAsync(Guid token, string email, int companyId)
         {
             try
@@ -107,7 +120,9 @@ namespace TheBugTracker.Services
                 throw;
             }
         }
+        #endregion
 
+        #region Validate Invite Code
         public async Task<bool> ValidateInviteCodeAsync(Guid? token)
         {
             if (token == null)
@@ -135,6 +150,7 @@ namespace TheBugTracker.Services
             }
 
             return result;
-        }
+        } 
+        #endregion
     }
 }

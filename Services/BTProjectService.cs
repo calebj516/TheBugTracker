@@ -21,8 +21,8 @@ namespace TheBugTracker.Services
         }
         #endregion
 
-        // CRUD - Create
         #region Add New Project
+        // CRUD - Create
         public async Task AddNewProjectAsync(Project project)
         {
             _context.Add(project);
@@ -100,8 +100,8 @@ namespace TheBugTracker.Services
         }
         #endregion
 
-        // CRUD - Archive (Delete)
         #region Archive Project
+        // CRUD - Archive (Delete)
         public async Task ArchiveProjectAsync(Project project)
         {
             try
@@ -232,11 +232,11 @@ namespace TheBugTracker.Services
         public async Task<List<BTUser>> GetDevelopersOnProjectAsync(int projectId)
         {
             throw new NotImplementedException();
-        } 
+        }
         #endregion
 
-        // CRUD - Read
         #region Get Project By Id
+        // CRUD - Read
         public async Task<Project> GetProjectByIdAsync(int projectId, int companyId)
         {
             try
@@ -500,8 +500,8 @@ namespace TheBugTracker.Services
         }
         #endregion
 
-        // CRUD - Update
         #region Update Project
+        // CRUD - Update
         public async Task UpdateProjectAsync(Project project)
         {
             try
