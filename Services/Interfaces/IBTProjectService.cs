@@ -36,6 +36,8 @@ namespace TheBugTracker.Services.Interfaces
 
         public Task<bool> IsUserOnProjectAsync(string userId, int projectId);
 
+        public Task<bool> IsAssignedProjectManagerAsync(string userId, int projectId);
+
         public Task<int> LookupProjectPriorityIdAsync(string priorityName);
 
         public Task RemoveProjectManagerAsync(int projectId);
