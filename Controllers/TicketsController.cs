@@ -23,7 +23,11 @@ namespace TheBugTracker.Controllers
         private readonly IBTLookupService _lookupService;
         private readonly IBTTicketService _ticketService;
 
-        public TicketsController(ApplicationDbContext context, UserManager<BTUser> userManager, IBTProjectService projectService, IBTLookupService lookupService, IBTTicketService ticketService)
+        public TicketsController(ApplicationDbContext context, 
+                                 UserManager<BTUser> userManager, 
+                                 IBTProjectService projectService, 
+                                 IBTLookupService lookupService, 
+                                 IBTTicketService ticketService)
         {
             _context = context;
             _userManager = userManager;
@@ -64,6 +68,16 @@ namespace TheBugTracker.Controllers
             {
                 return View(tickets);
             }
+        }
+
+        // GET: Archived Tickets
+        public async Task<IActionResult> ArchivedTickets()
+        {
+            int companyId = User.Identity.GetCompanyId().Value;
+
+            List<Ticket> tickets = await _ticketService.GetArchivedTicketsAsync(companyId);
+
+            return View(tickets);
         }
 
         // GET: Tickets/Details/5
