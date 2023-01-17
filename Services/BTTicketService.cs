@@ -56,6 +56,22 @@ namespace TheBugTracker.Services
         }
         #endregion
 
+        #region Add Ticket Attachment
+        public async Task AddTicketAttachmentAsync(TicketAttachment ticketAttachment)
+        {
+            try
+            {
+                await _context.AddAsync(ticketAttachment);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+        #endregion
+
         #region Add Ticket Comment
         public async Task AddTicketCommentAsync(TicketComment ticketComment)
         {
@@ -327,6 +343,23 @@ namespace TheBugTracker.Services
             }
         }
         #endregion
+
+        public async Task<TicketAttachment> GetTicketAttachmentByIdAsync(int ticketAttachmentId)
+        {
+            try
+            {
+                TicketAttachment? ticketAttachment = await _context.TicketAttachments
+                                                                  .Include(t => t.User)
+                                                                  .FirstOrDefaultAsync(t => t.Id == ticketAttachmentId);
+
+                return ticketAttachment;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         #region Get Ticket Developer
         public async Task<BTUser> GetTicketDeveloperAsync(int ticketId, int companyId)
