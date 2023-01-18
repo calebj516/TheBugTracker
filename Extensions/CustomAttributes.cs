@@ -12,7 +12,6 @@ namespace TheBugTracker.Extensions
             _maxFileSize = maxFileSize;
         }
 
-
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var file = value as IFormFile;
@@ -24,10 +23,8 @@ namespace TheBugTracker.Extensions
                 }
             }
 
-
             return ValidationResult.Success;
         }
-
 
         public string GetErrorMessage()
         {
@@ -43,7 +40,6 @@ namespace TheBugTracker.Extensions
             _extensions = extensions;
         }
 
-
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var file = value as IFormFile;
@@ -58,7 +54,6 @@ namespace TheBugTracker.Extensions
 
             return ValidationResult.Success;
         }
-
 
         public string GetErrorMessage(string ext)
         {

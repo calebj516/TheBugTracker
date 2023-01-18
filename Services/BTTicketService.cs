@@ -344,6 +344,7 @@ namespace TheBugTracker.Services
         }
         #endregion
 
+        #region Get Ticket Attachment By Id
         public async Task<TicketAttachment> GetTicketAttachmentByIdAsync(int ticketAttachmentId)
         {
             try
@@ -359,7 +360,8 @@ namespace TheBugTracker.Services
 
                 throw;
             }
-        }
+        } 
+        #endregion
 
         #region Get Ticket Developer
         public async Task<BTUser> GetTicketDeveloperAsync(int ticketId, int companyId)
