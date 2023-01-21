@@ -138,7 +138,7 @@ namespace TheBugTracker.Controllers
 
             int companyId = User.Identity.GetCompanyId().Value;
 
-            model.Project = await _projectService.GetProjectByIdAsync(companyId, id);
+            model.Project = await _projectService.GetProjectByIdAsync(id, companyId);
 
             List<BTUser> developers = await _rolesService.GetUsersInRoleAsync(nameof(Roles.Developer), companyId);
             List<BTUser> submitters = await _rolesService.GetUsersInRoleAsync(nameof(Roles.Submitter), companyId);
@@ -149,6 +149,35 @@ namespace TheBugTracker.Controllers
             model.Users = new MultiSelectList(companyMembers, "Id", "FullName", projectMembers);
 
             return View(model);
+        }
+
+        // POST: Assign Members
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignMembers(ProjectMembersViewModel model)
+        {
+            if (model.SelectedUsers != null)
+            {
+                List<string> memberIds = (await _projectService.GetAllProjectMembersExceptPMAsync(model.Project.Id))
+                                                               .Select(m => m.Id).ToList();
+
+                // Remove current members
+                foreach (string member in memberIds)
+                {
+                    await _projectService.RemoveUserFromProjectAsync(member, model.Project.Id);
+                }
+
+                // Add the selected members
+                foreach (string member in model.SelectedUsers)
+                {
+                    await _projectService.AddUserToProjectAsync(member, model.Project.Id);
+                }
+
+                // Go to project details
+                return RedirectToAction(nameof(Details), new { model.Project.Id });
+            }
+
+            return RedirectToAction(nameof(AssignMembers), new { model.Project.Id });
         }
 
         // GET: Projects/Details/5
@@ -240,7 +269,7 @@ namespace TheBugTracker.Controllers
 
             // Get Project Manager
             BTUser? projectManager = await _projectService.GetProjectManagerAsync(id.Value);
-            
+
             // If there is a PM, assign the id to the model id
             if (projectManager != null)
             {
