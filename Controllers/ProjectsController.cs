@@ -113,6 +113,20 @@ namespace TheBugTracker.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignPM(AssignPMViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.PMID))
+            {
+                await _projectService.AddProjectManagerAsync(model.PMID, model.Project.Id);
+
+                return RedirectToAction(nameof(Details), new { id = model.Project.Id });
+            }
+
+            return RedirectToAction(nameof(AssignPM), new { projectId = model.Project.Id });
+        }
+
         // GET: Projects/Details/5
         public async Task<IActionResult> Details(int? id)
         {

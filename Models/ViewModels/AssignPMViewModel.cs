@@ -6,6 +6,6 @@ namespace TheBugTracker.Models.ViewModels
     {
         public Project? Project { get; set; }
         public SelectList? PMList { get; set; }
-        public int PMID { get; set; }
+        public string? PMID { get; set; }
     }
 }
