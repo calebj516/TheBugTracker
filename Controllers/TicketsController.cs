@@ -18,6 +18,7 @@ using TheBugTracker.Models.ViewModels;
 
 namespace TheBugTracker.Controllers
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private readonly UserManager<BTUser> _userManager;
@@ -80,7 +81,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Unassigned Tickets
-        [Authorize(Roles="Admin,ProjectManager")]
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         public async Task<IActionResult> UnassignedTickets()
         {
             int companyId = User.Identity.GetCompanyId().Value;
@@ -110,6 +111,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Assign Developer
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         [HttpGet]
         public async Task<IActionResult> AssignDeveloper(int id)
         {
@@ -123,6 +125,7 @@ namespace TheBugTracker.Controllers
         }
 
         // POST: Assign Developer
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignDeveloper(AssignDeveloperViewModel model)
@@ -389,6 +392,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Tickets/Archive/5
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         public async Task<IActionResult> Archive(int? id)
         {
             if (id == null)
@@ -407,6 +411,7 @@ namespace TheBugTracker.Controllers
         }
 
         // POST: Tickets/Archive/5
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         [HttpPost, ActionName("Archive")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArchiveConfirmed(int id)
@@ -419,6 +424,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Tickets/Restore/5
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         public async Task<IActionResult> Restore(int? id)
         {
             if (id == null)
@@ -437,6 +443,7 @@ namespace TheBugTracker.Controllers
         }
 
         // POST: Tickets/Restore/5
+        [Authorize(Roles = $"{nameof(Roles.Admin)}, {nameof(Roles.ProjectManager)}")]
         [HttpPost, ActionName("Restore")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)
