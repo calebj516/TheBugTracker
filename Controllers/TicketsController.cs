@@ -20,7 +20,6 @@ namespace TheBugTracker.Controllers
 {
     public class TicketsController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly UserManager<BTUser> _userManager;
         private readonly IBTProjectService _projectService;
         private readonly IBTLookupService _lookupService;
@@ -28,28 +27,19 @@ namespace TheBugTracker.Controllers
         private readonly IBTFileService _fileService;
         private readonly IBTTicketHistoryService _historyService;
 
-        public TicketsController(ApplicationDbContext context,
-                                 UserManager<BTUser> userManager,
+        public TicketsController(UserManager<BTUser> userManager,
                                  IBTProjectService projectService,
                                  IBTLookupService lookupService,
                                  IBTTicketService ticketService,
                                  IBTFileService fileService,
                                  IBTTicketHistoryService historyService)
         {
-            _context = context;
             _userManager = userManager;
             _projectService = projectService;
             _lookupService = lookupService;
             _ticketService = ticketService;
             _fileService = fileService;
             _historyService = historyService;
-        }
-
-        // GET: Tickets
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Tickets.Include(t => t.DeveloperUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
-            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: My Tickets
@@ -167,7 +157,7 @@ namespace TheBugTracker.Controllers
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Tickets == null)
+            if (id == null)
             {
                 return NotFound();
             }
