@@ -326,7 +326,7 @@ namespace TheBugTracker.Controllers
                         await _projectService.RemoveProjectManagerAsync(model.Project.Id);
                     }
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(AllProjects));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -342,7 +342,7 @@ namespace TheBugTracker.Controllers
 
             }
 
-            return RedirectToAction("Edit");
+            return RedirectToAction(nameof(Edit));
         }
 
         // GET: Projects/Archive/5

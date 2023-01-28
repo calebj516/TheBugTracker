@@ -2,7 +2,7 @@
 {
     public class AmChartData
     {
-        public AmItem[] Data { get; set; }
+        public AmItem[]? Data { get; set; }
     }
 
     public class AmItem

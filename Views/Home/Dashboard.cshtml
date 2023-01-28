@@ -13,17 +13,15 @@
 
 <!-- Styles -->
 <style>
+	.amDark {
+		background-color: #30303d;
+		color: #fff;
+	}
 
-    .amDark {
-        background-color: #30303d;
-        color: #fff;
-    }
-
-    #chartDiv {
-        width: 100%;
-        height: 500px;
-    }
-
+	#chartdiv {
+		width: 100%;
+		height: 500px;
+	}
 </style>
 
 <h1>Dashboard</h1>
@@ -55,8 +53,17 @@
                     <div class="card text-center bg-info">
                         <div class="body">
                             <div class="p-15 text-light">
-                                <h3>@Model.Projects.Where(p => p.StartDate < DateTime.Now && p.EndDate > DateTime.Now).Count()</h3>
-                                <span>Active Projects</span>
+                                @if (Model.Projects.Where(p => p.StartDate < DateTime.Now && p.EndDate > DateTime.Now).Count() == 1)
+                                {
+                                    <h3>@Model.Projects.Where(p => p.StartDate < DateTime.Now && p.EndDate > DateTime.Now).Count()</h3>
+                                    <span>Active Project</span>
+                                }
+                                else
+                                {
+                                    <h3>@Model.Projects.Where(p => p.StartDate < DateTime.Now && p.EndDate > DateTime.Now).Count()</h3>
+                                    <span>Active Projects</span>
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -114,6 +121,7 @@
                             <div id="chart3D"></div>
                         </div>
                     </div>
+
                     <div class="card col m-1 p-2">
                         <div class="card-body">
                             <h5>Project Tickets Count (%)</h5>
@@ -163,6 +171,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="row gy-2">
+            <div class="cols mt-5 bg-secondary">
+                <div class="card col m-1 p-2">
+                    <div class="card-body" style="height:600px;overflow-y:auto;">
+                        <h5>Project: Tickets vs Developers</h5>
+                        <p>[Plotly]</p>
+                        <!-- HTML -->
+                        <div id="plotlyChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <hr />
     <div class="mt-5 ">
@@ -341,7 +363,7 @@
         function drawChart() {
             $.ajax({
                 type: "POST",
-                url: "/Home/GglProjectPriority",
+                url: "/Home/GglProjectTickets",
                 data: '{}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -375,19 +397,19 @@
         var morrisDonutData = [{
             label: "Low",
             value: @Model.Tickets.Where(t => t.TicketPriority.Name == nameof(BTTicketPriority.Low)).Count()
-                            },
+        },
         {
             label: "Medium",
             value: @Model.Tickets.Where(t => t.TicketPriority.Name == nameof(BTTicketPriority.Medium)).Count()
-                            },
+        },
         {
             label: "High",
             value: @Model.Tickets.Where(t => t.TicketPriority.Name == nameof(BTTicketPriority.High)).Count()
-                            },
+        },
         {
             label: "Urgent",
             value: @Model.Tickets.Where(t => t.TicketPriority.Name == nameof(BTTicketPriority.Urgent)).Count()
-                            }];
+        }];
 
         // Morris: Donut
 
@@ -426,11 +448,11 @@
             datasets: [
                 {
                     data: [
-        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.Development)).Count(),
-        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.New)).Count(),
-        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.Resolved)).Count(),
-        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.Testing)).Count()
-                            ],
+                        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.Development)).Count(),
+                        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.New)).Count(),
+                        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.Resolved)).Count(),
+                        @Model.Tickets.Where(t => t.TicketStatus.Name == nameof(BTTicketStatus.Testing)).Count()
+                    ],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -461,6 +483,7 @@
         });
     </script>
     <!-- *** End Chart JS Donut -->
+
     <!-- *** Begin AM Charts *** -->
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -484,10 +507,8 @@
                     var chart = am4core.create("chartdiv", am4charts.XYChart);
 
 
-
                     // Add data
                     chart.data = result;
-
 
                     // Create axes
                     var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
@@ -540,8 +561,34 @@
             error: function (result) {
                 alert(result.d);
             }
-
         });
-
     </script>
+
+    <!-- *** End AM Charts *** -->
+    <!--  Plotly Charts  -->
+    <!-- Load plotly.js into the DOM -->
+    <script src='https://cdn.plot.ly/plotly-2.4.2.min.js'></script>
+    <script>
+        $.ajax({
+            type: "POST",
+            url: "/Home/PlotlyBarChart",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var data = result;
+
+                var layout = { barmode: 'group' };
+
+                Plotly.newPlot('plotlyChart', data, layout);
+            },
+            failure: function (result) {
+                alert(result.d);
+            },
+            error: function (result) {
+                alert(result.d);
+            }
+        });
+    </script>
+
 }
