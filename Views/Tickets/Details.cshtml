@@ -218,7 +218,7 @@
 
                                     <span class="date" style="font-weight:bold">@history.Created.ToString("dd MMM yyyy")</span>
                                     <h6>@history.Description</h6>
-                                    <span>By: <a href="" title="@history.User.FullName">@history.User.FullName</a></span>
+                                    <span>By: <a href="" title="@history.User?.FullName">@history.User?.FullName</a></span>
                                     <div class="">
                                         @if (history.Description.Contains("New Ticket Created"))
                                         {
