@@ -47,8 +47,8 @@
     <div classxfont-weighteighteightgetainer-fluid">
 
         <!-- Info Pills -->
-        <div class="row mt-2">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="row mt-4 mb-4">
+            <div class="col-xl-3 col-md-6 mb-2">
                 <a asp-action="AllProjects" asp-controller="Projects" style="text-decoration:none">
                     <div class="card text-center bg-info">
                         <div class="body">
@@ -69,7 +69,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-xl-3 col-md-6 mb-2">
                 <a asp-action="AllTickets" asp-controller="Tickets" style="text-decoration:none">
                     <div class="card text-center bg-secondary">
                         <div class="body">
@@ -82,7 +82,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-xl-3 col-md-6 mb-2">
                 <div class="card text-center bg-warning">
                     <div class="body">
                         <div class="p-15 text-light">
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-xl-3 col-md-6 mb-2">
                 <div class="card text-center bg-dark">
                     <div class="body">
                         <div class="p-15 text-light">
@@ -110,55 +110,80 @@
             </div>
         </div>
 
-        <div class="row gy-2">
-            <div class="col-md-12 col">
-                <div class="row col-cols-4 mt-5 bg-secondary">
+        <div class="row mb-4">
 
-                    <div class="card col m-1 p-2">
-                        <div class="card-body">
-                            <h5>Projects by Priority</h5>
-                            <p>[Google Charts]</p>
-                            <div id="chart3D"></div>
-                        </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Projects by Priority
                     </div>
-
-                    <div class="card col m-1 p-2">
-                        <div class="card-body">
-                            <h5>Project Tickets Count (%)</h5>
-                            <p>[Google Charts]</p>
-                            <div id="donut"></div>
-                        </div>
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height:400px">
+                        <div id="chart3D"></div>
                     </div>
-
-                    <div class="card col m-1 p-2">
-                        <div class="card-body">
-                            <h5>Tickets by Priority</h5>
-                            <p>[Morris Charts]</p>
-                            <!-- Morris: Donut -->
-                            <div class="col-md-12">
-                                <div id="legend" class="donut-legend" style="font-size:x-small"></div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="chart chart-md" id="morrisTicketPriority"></div>
-                            </div>
-                        </div>
+                    <div class="card-footer">
+                        <i>Google Charts</i>
                     </div>
-
-                    <div class="card col m-1 p-2">
-                        <div class="card-body">
-                            <h5>Tickets by Status</h5>
-                            <p>[ChartJS]</p>
-                            <!-- ChartJS: Pie/Doughnut -->
-                            <div class="col-md-12">
-                                <!--  Chart.js Canvas Tag -->
-                                <canvas id="donutChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Project Tickets Count (%)
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height:400px">
+                        <div id="donut"></div>
+                    </div>
+                    <div class="card-footer">
+                        <i>Google Charts</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Tickets by Priority
+                    </div>
+                    <div class="card-body" style="height:400px">
+                        <!-- Morris: Donut -->
+                        <div class="col-md-12">
+                            <div id="legend" class="donut-legend" style="font-size:x-small"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="chart chart-md" id="morrisTicketPriority"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <i>Morris Charts</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Tickets by Status
+                    </div>
+                    <div class="card-body" style="height:400px">
+                        <!-- ChartJS: Pie/Doughnut -->
+                        <div class="col-md-12">
+                            <!--  Chart.js Canvas Tag -->
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <i>ChartJS</i>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
         <div class="row gy-2">
             <div class="cols mt-5 bg-secondary">
                 <div class="card col m-1 p-2">
@@ -357,6 +382,7 @@
             });
         }
     </script>
+
     <script type="text/javascript">
         google.load("visualization", "1", { packages: ["corechart"] });
         google.setOnLoadCallback(drawChart);
@@ -375,7 +401,7 @@
                         title: 'Company Ticket Distribution',
                         pieHole: 0.3,
                         chartArea: { left: 0, bottom: 15, width: '100%', height: '100%' },
-                        legend: { position: 'bottom' }
+                        legend: { position: 'none' }
                     };
                     var chart = new google.visualization.PieChart($("#donut")[0]);
                     chart.draw(data, options);
