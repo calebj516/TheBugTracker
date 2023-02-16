@@ -14,7 +14,7 @@
 <body>
     <div class="container-fluid overflow-hidden">
         <div class="row vh-100 overflow-auto">
-            <div class="col-sm-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+            <div class="col-sm-2 px-sm-2 px-0 bg-dark d-flex flex-nowrap sticky-top">
                 <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
                     <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="d-none d-sm-inline">BugTracker</span>
@@ -25,20 +25,20 @@
                     {
                         <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="nav-link px-sm-0 px-2 text-white">
+                                <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="nav-link px-sm-0 px-2">
                                     <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Home</span>
                                 </a>
                             </li>
                             <li>
                                 @if (User.IsInRole(nameof(Roles.Admin)))
                                 {
-                                    <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link px-sm-0 px-2 text-white">
+                                    <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link px-sm-0 px-2">
                                         <i class="fs-5 bi-building"></i><span class="ms-1 d-none d-sm-inline">Company</span>
                                     </a>
                                 }
                             </li>
                             <li class="dropdown">
-                                <a asp-area="" asp-controller="Projects" asp-action="Index" class="nav-link dropdown-toggle px-sm-0 px-2 text-white" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a asp-area="" asp-controller="Projects" asp-action="Index" class="nav-link dropdown-toggle px-sm-0 px-2" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fs-5 bi-file-earmark-ppt"></i><span class="ms-1 d-none d-sm-inline">Projects</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdown">
@@ -59,7 +59,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a asp-area="" asp-controller="Tickets" asp-action="Index" class="nav-link dropdown-toggle px-sm-0 px-2 text-white" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a asp-area="" asp-controller="Tickets" asp-action="Index" class="nav-link dropdown-toggle px-sm-0 px-2" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fs-5 bi-file-earmark-font"></i><span class="ms-1 d-none d-sm-inline">Tickets</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdown">
@@ -85,7 +85,7 @@
                     }
                 </div>
             </div>
-            <div class="col d-flex flex-column h-100">
+            <div class="col col-sm-10 d-flex flex-column h-100">
                 <main class="px-4">
                     @RenderBody()
                 </main>
