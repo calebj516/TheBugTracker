@@ -11,16 +11,7 @@
     BTUser btUser = await UserManager.GetUserAsync(User); // get all data associated with the logged-in user
 }
 
-
-
-@*@if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.ProjectManager)))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}*@
-
-<div class="row my-4 my-4 d-flex justify-content-center">
+<div class="row my-4 d-flex justify-content-center">
     <div class="col-sm-10">
         <div class="card mb-4">
             <div class="card-header">
@@ -81,89 +72,3 @@
         </div>
     </div>
 </div>
-
-@*<div class="row my-4 d-flex justify-content-center">
-    <div class="col col-sm-10">
-
-        <div class="card mb-4">
-            <div class="card-header">
-                <h1>All Projects</h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-responsive">
-                <thead>
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Start Date
-                        </th>
-                        <th>
-                            End Date
-                        </th>
-                        <th>
-                            Archived
-                        </th>
-                        <th>
-                            Priority
-                        </th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                    @item.Description
-                            </td>
-                            <td>
-                                    @item.StartDate
-                            </td>
-                            <td>
-                                    @item.EndDate
-                            </td>
-                            <td>
-                                    @item.Archived
-                            </td>
-                            <td>
-                                    @item.ProjectPriority
-                            </td>
-                            <td>
-                                <div class="d-flex flex-row">
-                                    <a class="btn btn-sm btn-outline-secondary me-1" asp-action="Details" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fs-5 bi-justify"></i></a>
-
-                                @{
-                                    bool isProjectPM = (await ProjectService.GetProjectManagerAsync(item.Id))?.Id == btUser.Id;
-                                }
-
-                                @if (User.IsInRole(nameof(Roles.Admin)) || isProjectPM)
-                                {
-                                        <a class="btn btn-sm btn-outline-success" asp-action="Edit" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fs-5 bi-pencil-square"></i></a>
-
-                                    @if (item.Archived)
-                                    {
-                                            <a class="btn btn-sm btn-outline-primary ms-1" asp-action="Restore" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Restore"><i class="fs-5 bi-file-earmark-plus"></i></a>
-                                    }
-                                    else
-                                    {
-                                            <a class="btn btn-sm btn-outline-danger ms-1" asp-action="Archive" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><i class="fs-5 bi-file-earmark-minus"></i></a>
-                                    }
-                                }
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        </div>
-    </div>
-</div>*@
