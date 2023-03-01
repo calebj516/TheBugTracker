@@ -4,12 +4,12 @@
     ViewData["Title"] = "Assign PM";
 }
 
-<h1>Project : @Model.Project.Name</h1>
 
-<h4>Assign Project Manager</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row d-flex flex-row justify-content-center mt-5 mb-0">
+    <div class="col-sm-8 col-md-6">
+        <h1>Project : @Model.Project.Name</h1>
+        <h4>Assign Project Manager</h4>
+        <hr />
         <form method="post" asp-action="AssignPM" asp-controller="Projects">
             <input type="hidden" asp-for="Project.Id" />
 
@@ -23,12 +23,12 @@
                     <option></option>
                 </select>
 
-                <input type="submit" value="Assign" class="btn btn-primary" />
+                <input type="submit" value="Assign" class="btn btn-primary my-2" />
             </div>
         </form>
+        <div>
+            <a asp-action="UnassignedProjects">Back to List</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="UnassignedProjects">Back to List</a>
-</div>
