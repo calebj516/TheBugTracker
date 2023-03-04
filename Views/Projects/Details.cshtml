@@ -231,15 +231,22 @@
                                                 <td><span class="badge-warning">@ticket.TicketPriority.Name </span></td>
                                                 <td>@ticket.Created.ToString("MM-dd-yyyy")</td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-controller="Tickets" asp-route-id="@ticket.Id"><i class="fs-5 bi-justify"></i></a>
+                                                    <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-controller="Tickets" asp-route-id="@ticket.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fs-5 bi-justify"></i></a>
                                                     @if (ticket.DeveloperUserId == btUser.Id || ticket.OwnerUserId == btUser.Id || (projectManager?.Id == btUser.Id) || User.IsInRole(nameof(Roles.Admin)))
                                                     {
-                                                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-controller="Tickets" asp-route-id="@ticket.Id"><i class="fs-5 bi-pencil"></i></a>
+                                                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-controller="Tickets" asp-route-id="@ticket.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fs-5 bi-pencil"></i></a>
                                                     }
 
                                                     @if (User.IsInRole("Admin") || (projectManager?.Id == btUser.Id))
                                                     {
-                                                        <a class="btn btn-sm btn-outline-danger"><i class="fs-5 bi-archive"></i></a>
+                                                        if (!ticket.Archived)
+                                                        {
+                                                            <a class="btn btn-sm btn-outline-danger" asp-action="Archive" asp-controller="Tickets" asp-route-id="@ticket.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><i class="fs-5 bi-archive"></i></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="btn btn-sm btn-outline-success" asp-action="Restore" asp-controller="Tickets" asp-route-id="@ticket.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Restore"><i class="fs-5 bi-file-earmark-plus"></i></a>
+                                                        }
                                                     }
                                                 </td>
                                             </tr>

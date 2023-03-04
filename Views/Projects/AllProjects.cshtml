@@ -40,7 +40,7 @@
                                     <td><span class="">@(item.Archived ? "Yes" : "No")</span></td>
                                     <td><span class="badge bg-dark">@item.ProjectPriority?.Name</span></td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-controller="Projects" asp-route-id="@item.Id"><i class="fs-5 bi-justify"></i></a>
+                                        <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fs-5 bi-justify"></i></a>
 
                                         @{
                                             bool isProjectPM = (await ProjectService.GetProjectManagerAsync(item.Id))?.Id == btUser.Id;
@@ -48,15 +48,15 @@
 
                                         @if (User.IsInRole(nameof(Roles.Admin)) || isProjectPM)
                                         {
-                                            <a class="btn btn-sm btn-outline-success" asp-action="Edit" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fs-5 bi-pencil-square"></i></a>
+                                            <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fs-5 bi-pencil"></i></a>
 
                                             @if (item.Archived)
                                             {
-                                                <a class="btn btn-sm btn-outline-primary ms-1" asp-action="Restore" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Restore"><i class="fs-5 bi-file-earmark-plus"></i></a>
+                                                <a class="btn btn-sm btn-outline-success ms-1" asp-action="Restore" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Restore"><i class="fs-5 bi-file-earmark-plus"></i></a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-sm btn-outline-danger ms-1" asp-action="Archive" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><i class="fs-5 bi-file-earmark-minus"></i></a>
+                                                <a class="btn btn-sm btn-outline-danger ms-1" asp-action="Archive" asp-controller="Projects" asp-route-id="@item.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><i class="fs-5 bi-archive"></i></a>
                                             }
                                         }
                                     </td>
