@@ -2,14 +2,14 @@
 @using TheBugTracker.Models.Enums
 
 
-<div class="col-md-12 col">
-    <div class="mt-5 bg-secondary">
-        <div class="card m-1 p-2">
-            <div class="header">
+<div class="row my-4 d-flex justify-content-center">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header">
                 <h2>Unassigned Tickets</h2>
             </div>
-            <div class="body">
-                <div class="table-responsive" style="overflow-y:auto;height:600px;">
+            <div class="card-body">
+                <div class="table-responsive" style="overflow-y:auto;height:800px;">
                     <table class="table table-hover">
                         <thead class="">
                             <tr>
@@ -40,16 +40,16 @@
 
                                         }
                                     </td>
-                                    @if (ticket.TicketStatus.Name == "New")
+                                    @if (ticket.TicketStatus?.Name == "New")
                                     {
                                         <td><span class="badge-success">@ticket.TicketStatus.Name </span></td>
 
                                     }
                                     else
                                     {
-                                        <td><span class="badge-primary">@ticket.TicketStatus.Name </span></td>
+                                        <td><span class="badge-primary">@ticket.TicketStatus?.Name </span></td>
                                     }
-                                    <td><span class="badge-warning">@ticket.TicketPriority.Name </span></td>
+                                    <td><span class="badge-warning">@ticket.TicketPriority?.Name </span></td>
                                     <td>@ticket.Created.ToString("MM-dd-yyyy")</td>
                                     <td>
                                         <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-controller="Tickets" asp-route-id="@ticket.Id"><i class="fs-5 bi-justify"></i></a>
@@ -61,7 +61,7 @@
                 </div>
 
             </div>
+            <div class="card-footer"></div>
         </div>
-
     </div>
 </div>
