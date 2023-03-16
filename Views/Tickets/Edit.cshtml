@@ -43,12 +43,15 @@
                 <span asp-validation-for="TicketStatusId" class="text-danger"></span>
             </div>
 
-            <div class="form-group mt-2">
+            <div class="form-group mt-2 d-flex flex-row justify-content-between">
+                <a asp-controller="Projects" asp-action="Details" asp-route-id="@Model.ProjectId">Project Details</a>
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-controller="Tickets" asp-action="AllTickets" asp-route-id="@Model.ProjectId">All Tickets</a>
             </div>
         </form>
-        <div>
-            <a class="mt-2" asp-action="AllTickets">Back to List</a>
+        <div class="mt-2 d-flex flex-row justify-content-between">
+            <a asp-controller="Projects" asp-action="Details" asp-route-id="@Model.ProjectId">Project Details</a>
+            <a asp-controller="Tickets" asp-action="AllTickets" asp-route-id="@Model.ProjectId">All Tickets</a>
         </div>
     </div>
 </div>

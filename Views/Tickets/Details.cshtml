@@ -46,7 +46,7 @@
                 <div class="card-body mb-2">
                     <p>@Model.Description</p>
                     <div class="progress-container progress-info">
-                        <span class="progress-badge" style="font-size:small">Project: @Model.Project?.Name</span>
+                        <span class="progress-badge" style="font-size:medium">Project: <a asp-controller="Projects" asp-action="Details" asp-route-id="@Model.ProjectId">@Model.Project?.Name</a></span>
                         <div class="progress">
 
                             @{

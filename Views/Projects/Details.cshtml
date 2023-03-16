@@ -172,9 +172,6 @@
                             <h6>@history.Description</h6>
                             <span>By: <a href="" title="@history.User?.FullName">@history.User?.FullName</a></span>
                             <div>
-@*                                <p>The ticket <b>@history.Property</b> was edited</p>
-                                <p>@($"Previous {history.Property}: {history.OldValue}")</p>
-                                <p>@($"Current {history.Property}: {history.NewValue}")</p>*@
                                 @if (history.Description.Contains("New Ticket Created"))
                                 {
                                     <p>A ticket was added.</p>
@@ -185,7 +182,7 @@
                                 }
                                 else
                                 {
-                                    <p>The ticket <b>@history.Property</b> was edited.</p>
+                                    <p>The <b>@history.Property</b> for ticket <b>@history.Ticket.Title</b> was edited.</p>
                                     <p>@($"Previous {history.Property}: ") <span style="color:red">@history.OldValue</span></p>
                                     <p>@($"Current {history.Property}: ") <span style="color:green">@history.NewValue</span></p>
                                 }
