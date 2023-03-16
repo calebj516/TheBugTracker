@@ -45,14 +45,10 @@
 
             <div class="form-group mt-2 d-flex flex-row justify-content-between">
                 <a asp-controller="Projects" asp-action="Details" asp-route-id="@Model.ProjectId">Project Details</a>
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary col-2" />
                 <a asp-controller="Tickets" asp-action="AllTickets" asp-route-id="@Model.ProjectId">All Tickets</a>
             </div>
         </form>
-        <div class="mt-2 d-flex flex-row justify-content-between">
-            <a asp-controller="Projects" asp-action="Details" asp-route-id="@Model.ProjectId">Project Details</a>
-            <a asp-controller="Tickets" asp-action="AllTickets" asp-route-id="@Model.ProjectId">All Tickets</a>
-        </div>
     </div>
 </div>
 
